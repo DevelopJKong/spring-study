@@ -15,8 +15,8 @@ public class OrderServiceImplTest {
         memoryMemberRepositroy.save(new Member(1L, "name", Grade.VIP));
 
         OrderServiceImpl orderService = new OrderServiceImpl(new MemoryMemberRepositroy(), new FixDiscountPolicy());
-        orderService.createOrder(1L,"itemA",10000);
-        Order order = orderService.createOrder(1L,"itemA",10000);
+        orderService.createOrder(1L,"itemA",1000);
+        Order order = orderService.createOrder(1L,"itemA",1000);
 
         assertThat(order.getDiscountPrice()).isEqualTo(1000);
 

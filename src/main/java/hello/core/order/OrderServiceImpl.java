@@ -1,14 +1,16 @@
 package hello.core.order;
 
+import hello.core.annotation.MainDiscountPolicy;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
+
 
 // -> @ReqioredArgsConstructor가 final 키워드가 포함된 생성자를 만들어준다
 //@Autowired
@@ -38,6 +40,13 @@ public class OrderServiceImpl implements OrderService {
 
     //개발자가 실수로 코드를 누락할수있는데 그럴때 위에 final 키워드를 넣어주면 누락했을때를 막을수있다
     // 생성자가 딱 하나면 생략할수있다 그래서 생략이 되어 있었던거였다
+
+        @Autowired
+        public OrderServiceImpl(MemberRepository memberRepository, @MainDiscountPolicy DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+        }
+
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
