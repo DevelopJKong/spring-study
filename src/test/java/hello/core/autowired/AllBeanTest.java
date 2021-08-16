@@ -14,6 +14,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import java.util.List;
 import java.util.Map;
 
+import static org.assertj.core.api.Assertions.*;
+
 public class AllBeanTest {
 
     @Test
@@ -23,11 +25,12 @@ public class AllBeanTest {
         Member member = new Member(1L,"userA",Grade.VIP);
         int discountPrice = discountService.discount(member,10000,"fixDiscountPolicy");
 
-        Assertions.assertThat(discountService).isInstanceOf(DiscountService.class);
-        Assertions.assertThat(discountPrice).isEqualTo(1000);
+        assertThat(discountService).isInstanceOf(DiscountService.class);
+        assertThat(discountPrice).isEqualTo(1000);
 
         int rateDiscountPrice= discountService.discount(member,2000,"rateDiscountPolicy");
-        Assertions.assertThat(discountPrice).isEqualTo(2000);
+        assertThat(rateDiscountPrice).isInstanceOf(DiscountService.class);
+        assertThat(discountPrice).isEqualTo(2000);
     }
 
     static class DiscountService {
@@ -44,6 +47,10 @@ public class AllBeanTest {
 
         public int discount(Member member, int price , String discountCode){
             DiscountPolicy discountPolicy = policyMap.get(discountCode);
+
+            System.out.println("discountCode = " + discountCode);
+            System.out.println("discountPolicy = " + discountPolicy);
+
             return discountPolicy.discount(member,price);
         }
 
