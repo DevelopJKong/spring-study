@@ -9,6 +9,6 @@ public interface DiscountPolicy {
     * */
 
 
-
+    //하나의 패키지에 discount 처럼 묶어 두는것이 좋다 49강
     int discount(Member member, int price);
 }
