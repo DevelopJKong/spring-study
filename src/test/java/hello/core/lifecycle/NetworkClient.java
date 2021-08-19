@@ -3,7 +3,7 @@ package hello.core.lifecycle;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
-public class NetworkClient implements InitializingBean, DisposableBean {
+public class NetworkClient  {
 
     private String url;
 
@@ -29,14 +29,16 @@ public class NetworkClient implements InitializingBean, DisposableBean {
         System.out.println("close " + url);
     }
 
-    @Override // proerties의 의존관계가 끝나면 호출해주겠다는 의미
-    public void afterPropertiesSet() throws Exception {
+    //@Override // proerties의 의존관계가 끝나면 호출해주겠다는 의미
+    public void init() {
+        System.out.println("NetworkClient.init");
         connect();
         call("초기화 연결 메시지");
     }
 
-    @Override
-    public void destroy() throws Exception {
+    //@Override
+    public void close() throws Exception {
+        System.out.println("NetworkClient.close");
         disconnect();
     }
 }
